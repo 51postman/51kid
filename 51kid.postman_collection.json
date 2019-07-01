@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "c039a3f1-843e-47b8-ac81-a23fd3df3bd1",
+		"_postman_id": "4ea39b77-d677-4f57-a52c-26e46973e8b6",
 		"name": "51kid",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -17,9 +17,10 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "e2bd1d68-791a-4aec-8f12-892c17424d91",
+										"id": "170a629b-a10d-4aeb-b2f6-f8852d077b23",
 										"exec": [
-											"    "
+											"tel=pm.environment.get(\"regUsername\");",
+											"pm.environment.set(\"regUsername\",Number(tel)+1);"
 										],
 										"type": "text/javascript"
 									}
@@ -27,7 +28,7 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "a9338188-2053-4c53-b14b-d999c1dba067",
+										"id": "bf2350f0-d4b9-4331-9ac8-c438df9d6d26",
 										"exec": [
 											"var jsonData = pm.response.json();",
 											"",
@@ -43,7 +44,8 @@
 											"     * 注意， 此处设置环境变量【regUserId】，注意清除 ",
 											"     * ******************************************",
 											"     * *****************************************/",
-											"pm.environment.set(\"userId\", jsonData.res.userId);"
+											"pm.environment.set(\"userId\", jsonData.res.userId);",
+											""
 										],
 										"type": "text/javascript"
 									}
@@ -518,7 +520,8 @@
 										"id": "825e0172-34ec-4bc3-be24-69a8a316a858",
 										"exec": [
 											"// 密码加密",
-											"pm.environment.set(\"password\",CryptoJS.MD5(data.regPassword).toString());",
+											"regPassword=pm.environment.get(\"regPassword\");",
+											"pm.environment.set(\"MRegPassword\",CryptoJS.MD5(regPassword).toString());",
 											"",
 											""
 										],
@@ -571,7 +574,7 @@
 										},
 										{
 											"key": "password",
-											"value": "{{password}}",
+											"value": "{{MRegPassword}}",
 											"type": "text"
 										}
 									]
@@ -2494,9 +2497,8 @@
 										"id": "825e0172-34ec-4bc3-be24-69a8a316a858",
 										"exec": [
 											"// 密码加密",
-											"// pm.environment.set(\"password\", CryptoJS.MD5(data.1v1Password).toString());",
-											"",
-											"pm.environment.set(\"password\",CryptoJS.MD5(data.buyPassword).toString());"
+											"buyPassword=pm.environment.get(\"buyPassword\");",
+											"pm.environment.set(\"MBuyPassword\",CryptoJS.MD5(buyPassword).toString());"
 										],
 										"type": "text/javascript"
 									}
@@ -2546,7 +2548,7 @@
 										},
 										{
 											"key": "password",
-											"value": "{{password}}",
+											"value": "{{MBuyPassword}}",
 											"type": "text"
 										},
 										{
@@ -4581,15 +4583,9 @@
 							"script": {
 								"id": "825e0172-34ec-4bc3-be24-69a8a316a858",
 								"exec": [
-									"// 使用【特定用户】测试OC课相关case",
 									"",
-									"var username = \"15280000001\";",
-									"var password = \"123456\";",
-									"",
-									"pm.environment.set(\"username\", username);",
-									"pm.environment.set(\"password\",CryptoJS.MD5(password).toString())",
-									"",
-									""
+									"ocPassword=pm.environment.get(\"ocPassword\");",
+									"pm.environment.set(\"MOCPassword\",CryptoJS.MD5(ocPassword).toString());"
 								],
 								"type": "text/javascript"
 							}
@@ -4635,12 +4631,12 @@
 							"formdata": [
 								{
 									"key": "username",
-									"value": "{{username}}",
+									"value": "{{ocUsernamer}}",
 									"type": "text"
 								},
 								{
 									"key": "password",
-									"value": "{{password}}",
+									"value": "{{MOCPassword}}",
 									"type": "text"
 								}
 							]
@@ -5851,9 +5847,9 @@
 										"id": "85cdaab6-dfff-4f71-90b1-7227b314e25e",
 										"exec": [
 											"// 密码加密",
-											"pm.environment.set(\"password\",CryptoJS.MD5(data.openClassPassword).toString());",
-											"//ps=pm.environment.get(\"userpassword\");",
-											"//pm.environment.set(\"password\",CryptoJS.MD5(ps).toString());"
+											"//pm.environment.set(\"password\",CryptoJS.MD5(data.openClassPassword).toString());",
+											"openClassPassword=pm.environment.get(\"openClassPassword\");",
+											"pm.environment.set(\"MopenClassUser\",CryptoJS.MD5(openClassPassword).toString());"
 										],
 										"type": "text/javascript"
 									}
@@ -5917,7 +5913,7 @@
 										},
 										{
 											"key": "password",
-											"value": "{{password}}",
+											"value": "{{MopenClassUser}}",
 											"type": "text"
 										},
 										{
@@ -8305,8 +8301,8 @@
 							"script": {
 								"id": "c40656b0-b189-4973-b029-8b6eb7267828",
 								"exec": [
-									"pm.environment.set(\"password\",CryptoJS.MD5(data.buyPassword).toString());",
-									""
+									"buyPassword=pm.environment.get(\"buyPassword\");",
+									"pm.environment.set(\"MBuyPassword\",CryptoJS.MD5(buyPassword).toString());"
 								],
 								"type": "text/javascript"
 							}
@@ -8330,7 +8326,7 @@
 								},
 								{
 									"key": "password",
-									"value": "{{password}}",
+									"value": "{{MBuyPassword}}",
 									"type": "text"
 								},
 								{
