@@ -12,6 +12,49 @@
 					"name": "注册",
 					"item": [
 						{
+							"name": "get Database Mobile",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "2fee2e50-f994-4792-a712-bae1fa118910",
+										"exec": [
+											"responseData = JSON.parse(responseBody)\r",
+											"var text = responseData[0];\r",
+											"if(text !== null){\r",
+											"    var mobile = responseData[0].mobile;\r",
+											"    var password = responseData[0].password;\r",
+											"    pm.environment.set(\"regUsername\",mobile);\r",
+											"    pm.environment.set(\"regPassword\",password);\r",
+											"}\r",
+											"else{\r",
+											"    tests[\"当前数据库里手机号为空，请填写!\"] = true === true;\r",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3000/api/reg/1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"reg",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
 							"name": "用户注册",
 							"event": [
 								{
@@ -19,8 +62,7 @@
 									"script": {
 										"id": "170a629b-a10d-4aeb-b2f6-f8852d077b23",
 										"exec": [
-											"tel=pm.environment.get(\"regUsername\");",
-											"pm.environment.set(\"regUsername\",Number(tel)+1);"
+											""
 										],
 										"type": "text/javascript"
 									}
@@ -38,6 +80,9 @@
 											"",
 											"pm.test(\"remindMsg is 注册成功\", function () {",
 											"    pm.expect(jsonData.res.remindMsg).to.eql(\"注册成功\");",
+											"    tel=pm.environment.get(\"regUsername\");",
+											"    mob=(Number(tel)+1).toString();",
+											"    pm.environment.set(\"mobile\",mob);",
 											"});",
 											"    /********************************************",
 											"     * ******************************************",
@@ -135,6 +180,38 @@
 											"key": "deviceId",
 											"value": "{{deviceId}}"
 										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "set Database Mobile",
+							"request": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"mobile\":{{mobile}}\n}"
+								},
+								"url": {
+									"raw": "http://localhost:3000/api/reg/1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"reg",
+										"1"
 									]
 								}
 							},
